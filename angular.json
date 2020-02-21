@@ -30,7 +30,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["elements/element.js"]
           },
           "configurations": {
             "production": {
@@ -119,6 +119,127 @@
           "configurations": {
             "production": {
               "devServerTarget": "v9:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "element1": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/element1",
+      "sourceRoot": "projects/element1/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/element1",
+            "index": "projects/element1/src/index.html",
+            "main": "projects/element1/src/main.ts",
+            "polyfills": "projects/element1/src/polyfills.ts",
+            "tsConfig": "projects/element1/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/element1/src/favicon.ico",
+              "projects/element1/src/assets"
+            ],
+            "styles": [
+              "projects/element1/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/element1/src/environments/environment.ts",
+                  "with": "projects/element1/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "element1:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "element1:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "element1:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/element1/src/test.ts",
+            "polyfills": "projects/element1/src/polyfills.ts",
+            "tsConfig": "projects/element1/tsconfig.spec.json",
+            "karmaConfig": "projects/element1/karma.conf.js",
+            "assets": [
+              "projects/element1/src/favicon.ico",
+              "projects/element1/src/assets"
+            ],
+            "styles": [
+              "projects/element1/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/element1/tsconfig.app.json",
+              "projects/element1/tsconfig.spec.json",
+              "projects/element1/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/element1/e2e/protractor.conf.js",
+            "devServerTarget": "element1:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "element1:serve:production"
             }
           }
         }
